@@ -1,0 +1,39 @@
+services:
+  api:
+    build:
+      context: .
+      target: development
+    environment:
+      CITY_API_ADDR: 0.0.0.0
+      CITY_API_PORT: 80
+      CITY_API_DB_USER: "city-api"
+      CITY_API_DB_PWD: "CHANGEME"
+      CITY_API_DB_URL: "postgresql://city-api:CHANGEME@db:5432/city-db"
+      DATABASE_URL: "${CITY_API_DB_URL}"
+    links:
+      - db
+    networks:
+      - api-tier
+    ports:
+      - "3001:80"
+    volumes:
+      - .:/usr/app
+      - cargo-registry:/usr/local/cargo/registry
+
+  db:
+    image: bitnami/postgresql:12.14.0
+    restart: always
+    environment:
+      POSTGRESQL_USERNAME: "city-api"
+      POSTGRESQL_PASSWORD: "CHANGEME"
+      POSTGRESQL_DATABASE: "city-db"
+    networks:
+      - api-tier
+    volumes:
+      - db-data:/bitnami/postgresql
+
+networks:
+  api-tier:
+volumes:
+  cargo-registry:
+  db-data:
