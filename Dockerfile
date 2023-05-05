@@ -14,10 +14,13 @@ FROM base AS development
 RUN apt-get update
 RUN apt-get install -y ca-certificates
 RUN rm -rf /var/lib/apt/lists/*
+
 RUN cargo install cargo-watch
+RUN cargo install sqlx-cli
 
 RUN cargo build --offline
 
+ENV RUST_LOG="city_api=trace"
 CMD ["cargo", "watch", "-x", "run"]
 
 # Stage PROD: Start app
@@ -28,9 +31,6 @@ RUN cargo build --release --offline
 FROM debian:bullseye-slim
 
 COPY --from=builder /usr/app/target/release/city-api /city-api
-COPY --from=builder /usr/app/target/release/migration /sea-orm-migration
 
-EXPOSE 80
-
-#ENV RUST_LOG="rust_gh_cicd=trace"
+ENV RUST_LOG="city_api=trace"
 CMD ["/city-api"]

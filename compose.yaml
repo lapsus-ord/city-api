@@ -4,36 +4,43 @@ services:
       context: .
       target: development
     environment:
-      CITY_API_ADDR: 0.0.0.0
-      CITY_API_PORT: 80
-      CITY_API_DB_USER: "city-api"
-      CITY_API_DB_PWD: "CHANGEME"
-      CITY_API_DB_URL: "postgresql://city-api:CHANGEME@db:5432/city-db"
+      CITY_API_ADDR: "${CITY_API_ADDR}"
+      CITY_API_PORT: "${CITY_API_PORT}"
+      CITY_API_DB_USER: "${CITY_API_DB_USER}"
+      CITY_API_DB_PWD: "${CITY_API_DB_PWD}"
+      CITY_API_DB_URL: "${CITY_API_DB_URL}"
       DATABASE_URL: "${CITY_API_DB_URL}"
-    links:
+    depends_on:
       - db
     networks:
       - api-tier
     ports:
-      - "3001:80"
+      - "${HOST_API_ADDR:-127.0.0.1}:${HOST_API_PORT:-2022}:${CITY_API_PORT:-2022}"
     volumes:
-      - .:/usr/app
-      - cargo-registry:/usr/local/cargo/registry
+      - ./src/:/usr/app/src
+      - ./Cargo.toml:/usr/app/Cargo.toml
+      - ./Cargo.lock:/usr/app/Cargo.lock
+      - cargo-target:/usr/app/target
+      - cargo-bin:/usr/local/cargo
 
   db:
     image: bitnami/postgresql:12.14.0
     restart: always
     environment:
-      POSTGRESQL_USERNAME: "city-api"
-      POSTGRESQL_PASSWORD: "CHANGEME"
-      POSTGRESQL_DATABASE: "city-db"
+      POSTGRESQL_USERNAME: "${CITY_API_DB_USER}"
+      POSTGRESQL_PASSWORD: "${CITY_API_DB_PWD}"
+      POSTGRESQL_DATABASE: "${CITY_API_DB_NAME:-city-db}"
     networks:
       - api-tier
+    ports:
+      - "127.0.0.1:5432:5432"
     volumes:
       - db-data:/bitnami/postgresql
+      - ./sql/:/docker-entrypoint-initdb.d/
 
 networks:
   api-tier:
 volumes:
-  cargo-registry:
+  cargo-target:
+  cargo-bin:
   db-data:
