@@ -20,23 +20,32 @@ Go to: [localhost:2022](http://localhost:3001/_health)
 
 ## FAQ
 
-<summary>
-	<details><strong>(⬇️ Not needed with Docker ⬇️)<br>
-		Install SQLx CLI to check the `query!` macro without
-		needing a DB (ex: in a CI environment):</strong>
-	</details>
+<details>
+	<summary>
+		<strong>
+			Install SQLx CLI to check the <code>query!</code> macro without
+			needing a DB (ex: in a CI environment)
+		</strong>
+	</summary>
+
+> ️ℹ️ Not needed with Docker
 
 ```shell
 cargo install sqlx-cli
 ```
 
-</summary>
+Source: [Enable building in "offline mode" with `query!()`
+](https://github.com/launchbadge/sqlx/tree/main/sqlx-cli#enable-building-in-offline-mode-with-query)
 
-<summary>
-	<details><strong>To enter the `psql` console of the Postgres:</strong></details>
+</details>
+
+<br>
+
+<details>
+	<summary><strong>To enter the <code>psql</code> console of the Postgres</strong></summary>
 
 ```shell
 docker compose exec -e PGPASSWORD=CHANGEME -it db psql -U city-api city-db
 ```
 
-</summary>
+</details>
