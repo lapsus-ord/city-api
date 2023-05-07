@@ -5,6 +5,13 @@ edition = "2021"
 publish = false
 license = "MIT"
 
+[profile.release]
+strip = true
+opt-level = "z"
+lto = true
+codegen-units = 1
+panic = "abort"
+
 [profile.dev.package.sqlx-macros]
 opt-level = 3
 
