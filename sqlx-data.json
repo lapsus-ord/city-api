@@ -1,0 +1,118 @@
+{
+  "db": "PostgreSQL",
+  "59c1e44876b69b067750214213ad53095826d535242e5ab350a679f460b44b01": {
+    "describe": {
+      "columns": [
+        {
+          "name": "id",
+          "ordinal": 0,
+          "type_info": "Int4"
+        },
+        {
+          "name": "department_code",
+          "ordinal": 1,
+          "type_info": "Varchar"
+        },
+        {
+          "name": "insee_code",
+          "ordinal": 2,
+          "type_info": "Varchar"
+        },
+        {
+          "name": "zip_code",
+          "ordinal": 3,
+          "type_info": "Varchar"
+        },
+        {
+          "name": "name",
+          "ordinal": 4,
+          "type_info": "Varchar"
+        },
+        {
+          "name": "lat",
+          "ordinal": 5,
+          "type_info": "Float8"
+        },
+        {
+          "name": "lon",
+          "ordinal": 6,
+          "type_info": "Float8"
+        }
+      ],
+      "nullable": [
+        false,
+        false,
+        true,
+        true,
+        false,
+        false,
+        false
+      ],
+      "parameters": {
+        "Left": []
+      }
+    },
+    "query": "SELECT * FROM cities;\n"
+  },
+  "68ab9023080d4f2c9ee6a7d93ec7f93a8df4b02b58b8c1baf2b249257ff12987": {
+    "describe": {
+      "columns": [
+        {
+          "name": "id",
+          "ordinal": 0,
+          "type_info": "Int4"
+        },
+        {
+          "name": "department_code",
+          "ordinal": 1,
+          "type_info": "Varchar"
+        },
+        {
+          "name": "insee_code",
+          "ordinal": 2,
+          "type_info": "Varchar"
+        },
+        {
+          "name": "zip_code",
+          "ordinal": 3,
+          "type_info": "Varchar"
+        },
+        {
+          "name": "name",
+          "ordinal": 4,
+          "type_info": "Varchar"
+        },
+        {
+          "name": "lat",
+          "ordinal": 5,
+          "type_info": "Float8"
+        },
+        {
+          "name": "lon",
+          "ordinal": 6,
+          "type_info": "Float8"
+        }
+      ],
+      "nullable": [
+        false,
+        false,
+        true,
+        true,
+        false,
+        false,
+        false
+      ],
+      "parameters": {
+        "Left": [
+          "Varchar",
+          "Varchar",
+          "Varchar",
+          "Varchar",
+          "Float8",
+          "Float8"
+        ]
+      }
+    },
+    "query": "INSERT INTO cities(\"department_code\", \"insee_code\", \"zip_code\", \"name\", \"lat\", \"lon\")\nVALUES ($1, $2, $3, $4, $5, $6)\nRETURNING *;\n"
+  }
+}

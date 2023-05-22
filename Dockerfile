@@ -8,6 +8,7 @@ COPY Cargo.toml /usr/app/Cargo.toml
 
 RUN cargo fetch
 
+COPY ./sql /usr/app/sql
 COPY ./src /usr/app/src
 
 # Stage DEV: Start app
