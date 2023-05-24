@@ -33,6 +33,17 @@ jobs:
   test:
       name: Test
       runs-on: ubuntu-latest
+      env:
+        CITY_API_DB_USER: city-api
+        CITY_API_DB_PWD: CHANGEME
+        CITY_API_DB_URL: postgresql://city-api:CHANGEME@db:5432/city-db?schema=public
+      services:
+        db:
+          image: bitnami/postgresql:12.14.0
+          env:
+            POSTGRESQL_USERNAME: city-api
+            POSTGRESQL_PASSWORD: CHANGEME
+            POSTGRESQL_DATABASE: city-db
       steps:
         - uses: actions/checkout@v3
         - uses: dtolnay/rust-toolchain@stable
