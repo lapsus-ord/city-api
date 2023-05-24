@@ -11,7 +11,7 @@ pub struct City {
     pub lon: f64,
 }
 
-#[derive(Debug, Deserialize)]
+#[derive(Debug, Deserialize, Serialize, PartialEq)]
 pub struct CreateCity {
     pub department_code: String,
     pub insee_code: Option<String>,

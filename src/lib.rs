@@ -1,6 +1,6 @@
-mod city;
-mod db;
-mod routes;
+pub mod city;
+pub mod db;
+pub mod routes;
 
 use crate::db::{db_connect, PoolDb};
 use crate::routes::fetch_cities::fetch_cities_handler;
