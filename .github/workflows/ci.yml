@@ -34,16 +34,20 @@ jobs:
       name: Test
       runs-on: ubuntu-latest
       env:
-        CITY_API_DB_USER: city-api
-        CITY_API_DB_PWD: CHANGEME
-        CITY_API_DB_URL: postgresql://city-api:CHANGEME@db:5432/city-db?schema=public
+        CITY_API_DB_USER: root
+        CITY_API_DB_PWD: root
+        CITY_API_DB_URL: postgresql://root:root@postgres:5432/city-db?schema=public
       services:
-        db:
+        postgres:
           image: bitnami/postgresql:12.14.0
           env:
-            POSTGRESQL_USERNAME: city-api
-            POSTGRESQL_PASSWORD: CHANGEME
+            POSTGRESQL_USERNAME: root
+            POSTGRESQL_PASSWORD: root
             POSTGRESQL_DATABASE: city-db
+          ports:
+            - 5432:5432
+          volumes:
+            - ./sql/init.sql:/docker-entrypoint-initdb.d/init.sql
       steps:
         - uses: actions/checkout@v3
         - uses: dtolnay/rust-toolchain@stable
