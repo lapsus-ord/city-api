@@ -46,11 +46,17 @@ jobs:
             POSTGRESQL_DATABASE: city-db
           ports:
             - 5432:5432
-          volumes:
-            - ./sql/init.sql:/docker-entrypoint-initdb.d/init.sql
+          options: >-
+            --health-cmd pg_isready
+            --health-interval 10s
+            --health-retries 5
       steps:
         - uses: actions/checkout@v3
         - uses: dtolnay/rust-toolchain@stable
         - uses: Swatinem/rust-cache@v2
+        - name: Init sql script
+          run: psql -h postgres -d city-db -U root -f ./sql/init.sql
+          env:
+            PGPASSWORD: root
         - name: Run tests
           run: cargo test
