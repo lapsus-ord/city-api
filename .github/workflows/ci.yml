@@ -36,26 +36,27 @@ jobs:
       env:
         CITY_API_DB_USER: root
         CITY_API_DB_PWD: root
-        CITY_API_DB_URL: postgresql://root:root@postgres:5432/city-db?schema=public
+        CITY_API_DB_URL: postgresql://root:root@localhost:5432/city-db?schema=public
       services:
         postgres:
-          image: bitnami/postgresql:12.14.0
+          image: postgres
           env:
-            POSTGRESQL_USERNAME: root
-            POSTGRESQL_PASSWORD: root
-            POSTGRESQL_DATABASE: city-db
+            POSTGRES_USER: root
+            POSTGRES_PASSWORD: root
+            POSTGRES_DB: city-db
           ports:
             - 5432:5432
           options: >-
             --health-cmd pg_isready
-            --health-interval 10s
+            --health-interval 5s
+            --health-timeout 60s
             --health-retries 5
       steps:
         - uses: actions/checkout@v3
         - uses: dtolnay/rust-toolchain@stable
         - uses: Swatinem/rust-cache@v2
         - name: Init sql script
-          run: psql -h postgres -d city-db -U root -f ./sql/init.sql
+          run: psql -h localhost -d city-db -U root -f ./sql/init.sql
           env:
             PGPASSWORD: root
         - name: Run tests
