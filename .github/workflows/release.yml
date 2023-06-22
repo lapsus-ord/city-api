@@ -3,7 +3,6 @@ name: Build and release versioned Docker image
 on:
   workflow_run:
     workflows: [CI]
-    branches: [master]
     types:
       - completed
     tags:
