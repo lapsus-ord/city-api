@@ -10,13 +10,38 @@ Copy the `.env.example`:
 cp .env.example .env
 ```
 
-Start docker:
+Start DB & api:
 
 ```shell
 docker compose up -d
 ```
 
-Go to: [localhost:2022](http://localhost:3001/_health)
+Go to: [localhost:2022](http://localhost:2022/_health)
+
+<details>
+	<summary>
+		If you want to use your local version, change in the [`compose.yaml`](./compose.yaml):
+	</summary>
+
+```yaml
+services:
+  api:
+    image: ghcr.io/lapsus-ord/city-api:latest
+  # ...
+```
+
+by:
+
+```yaml
+services:
+  api:
+    build:
+      context: .
+      target: production
+    # ...
+```
+
+</details>
 
 ## FAQ
 
