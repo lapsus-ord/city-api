@@ -16,9 +16,14 @@ panic = "abort"
 opt-level = 3
 
 [dependencies]
-actix-web = "4.3.1"
+actix-web = { version = "4.3.1", features = ["rustls"] }
 log = "0.4.17"
 pretty_env_logger = "0.5.0"
 serde = { version = "1.0", features = ["derive"] }
 serde_json = "1.0"
-sqlx = { version = "0.6.3", features = ["runtime-actix-native-tls" , "postgres", "macros", "offline"] }
+sqlx = { version = "0.6.3", features = [
+  "runtime-actix-rustls",
+  "postgres",
+  "macros",
+  "offline",
+] }
