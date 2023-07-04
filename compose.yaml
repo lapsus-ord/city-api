@@ -15,6 +15,7 @@ services:
       - db
     networks:
       - api-tier
+      - metrics-tier
     ports:
       - "127.0.0.1:${HOST_API_PORT}:${CITY_API_PORT:-80}"
 
@@ -32,8 +33,27 @@ services:
       - db-data:/bitnami/postgresql
       - ./sql/init.sql:/docker-entrypoint-initdb.d/init.sql
 
+  prometheus:
+    image: bitnami/prometheus:2.45.0
+    ports:
+      - 3010:9090
+    volumes:
+      - ./metrics/prometheus/prometheus.yaml:/opt/bitnami/prometheus/conf/prometheus.yml
+    networks:
+      - metrics-tier
+
+  grafana:
+    image: bitnami/grafana:9.5.5
+    ports:
+      - 3005:3000
+    volumes:
+      - ./metrics/grafana:/opt/bitnami/grafana/conf/provisioning
+    networks:
+      - metrics-tier
+
 networks:
   api-tier:
+  metrics-tier:
 
 volumes:
   db-data:

@@ -17,6 +17,7 @@ opt-level = 3
 
 [dependencies]
 actix-web = { version = "4.3.1", features = ["rustls"] }
+actix-web-prom = "0.6.0"
 log = "0.4.17"
 pretty_env_logger = "0.5.0"
 serde = { version = "1.0", features = ["derive"] }
