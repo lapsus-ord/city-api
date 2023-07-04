@@ -1,0 +1,23 @@
+deploymentName: city-api
+
+image:
+  repository: ghcr.io/lapsus-ord/city-api
+  version: "v0.0.3"
+
+service:
+  name: city-api-service
+  type: NodePort
+  port: 2022
+  targetPort: 2022
+
+env:
+  CITY_API_DB_USER: "city-api"
+  CITY_API_DB_PWD: "CHANGEME"
+  CITY_API_DB_NAME: "city-db"
+  CITY_API_DB_URL: "postgresql://city-api:CHANGEME@city-api-postgresql:5432/city-db?schema=public"
+
+postgresql:
+  auth:
+    username: "city-api"
+    password: "CHANGEME"
+    database: "city-db"

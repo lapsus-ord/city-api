@@ -1,0 +1,34 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Values.deploymentName }}-deployment
+  labels:
+    app: {{ .Values.deploymentName }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app: {{ .Values.deploymentName }}
+  replicas: {{ .Values.replicas }}
+  template:
+    metadata:
+      labels:
+        app: {{ .Values.deploymentName }}
+    spec:
+      containers:
+        - name: {{ .Values.deploymentName }}
+          image: {{ .Values.image.repository }}:{{ .Values.image.version }}
+          imagePullPolicy: IfNotPresent
+          ports:
+            - name: http
+              containerPort: 2022
+              protocol: TCP
+          env:          
+            - name: "CITY_API_DB_USER"
+              value: {{ .Values.env.CITY_API_DB_USER }}
+            - name: "CITY_API_DB_PWD"
+              value: {{ .Values.env.CITY_API_DB_PWD }}
+            - name: "CITY_API_DB_NAME"
+              value: {{ .Values.env.CITY_API_DB_NAME }}
+            - name: "CITY_API_DB_URL"
+              value: {{ .Values.env.CITY_API_DB_URL }}

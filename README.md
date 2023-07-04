@@ -43,6 +43,13 @@ services:
 
 </details>
 
+## Launch on K3D
+
+- First, install [k3d](https://k3d.io/#installation) (or minikube)
+- Then, create a cluster: `k3d cluster create city-api-cluster`
+- Deploy using helm: `helm install city-api ./helm`
+- Open the service: `kubectl port-forward deployment/city-api-deployment 2022`
+
 ## FAQ
 
 <details>
