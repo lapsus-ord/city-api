@@ -24,9 +24,7 @@ COPY ./sqlx-data.json /usr/app/sqlx-data.json
 RUN cargo build --target x86_64-unknown-linux-musl --release --offline
 
 FROM scratch as production
-LABEL org.opencontainers.image.source="https://github.com/lapsus-ord/city-api"
 
 COPY --from=builder /usr/app/target/x86_64-unknown-linux-musl/release/city-api /app/city-api
 
-ENV RUST_LOG="city_api=trace"
 CMD ["/app/city-api"]
