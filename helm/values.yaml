@@ -1,8 +1,8 @@
 deploymentName: city-api
 
 image:
-  repository: ghcr.io/lapsus-ord/city-api
-  version: "v0.0.6"
+  repository: "ghcr.io/lapsus-ord/city-api"
+  version: "latest"
 
 service:
   name: city-api-service
