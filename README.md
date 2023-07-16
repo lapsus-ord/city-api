@@ -2,6 +2,20 @@
 
 Project to experiment with Github Actions.
 
+## Install with Helm
+
+Create a namespace for this application:
+
+```shell
+kubectl create namespace city-api # for example
+```
+
+Install the helm chart:
+
+```shell
+helm install ./helm --generate-name -n city-api
+```
+
 ## Start
 
 Copy the `.env.example`:
