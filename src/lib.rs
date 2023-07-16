@@ -8,7 +8,7 @@ use crate::routes::{
 };
 use actix_web::{middleware, web, App, HttpServer};
 use actix_web_prom::{PrometheusMetrics, PrometheusMetricsBuilder};
-use log::info;
+use log::{info, LevelFilter};
 use std::env;
 use std::io::{Error, ErrorKind};
 
@@ -17,7 +17,9 @@ pub struct AppState {
 }
 
 pub async fn create_server() -> std::io::Result<()> {
-    pretty_env_logger::init_timed();
+    pretty_env_logger::formatted_timed_builder()
+        .filter_module("city_api", LevelFilter::Trace)
+        .init();
 
     let pool = db_connect().await?;
     let prometheus = prometheus_config();

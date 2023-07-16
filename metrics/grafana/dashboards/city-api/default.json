@@ -69,7 +69,7 @@
         {
           "datasource": "Prometheus",
           "editorMode": "code",
-          "expr": "sum(rate(city_api_http_requests_duration_seconds_bucket{}[30s])) by (endpoint, method)",
+          "expr": "sum(rate(city_api_http_requests_duration_seconds_sum{}[30s])) by (endpoint, method)",
           "hide": false,
           "legendFormat": "__auto",
           "range": true,
