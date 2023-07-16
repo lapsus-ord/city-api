@@ -25,7 +25,7 @@ jobs:
         with:
           images: ghcr.io/lapsus-ord/city-api
           tags: |
-            type=semver,pattern={{version}}
+            type=semver,pattern={{raw}}
             latest
 
       - name: Login to github container registry
