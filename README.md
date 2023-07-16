@@ -2,7 +2,7 @@
 
 Project to experiment with Github Actions.
 
-> ℹ️ [Subject](./docs/README.md)
+> ℹ️ [Subject](./docs/README.md)  
 > ℹ️ [Subject report](./docs/report.md)
 
 ## Launch the app on Docker
