@@ -2,6 +2,9 @@
 
 Project to experiment with Github Actions.
 
+> ℹ️ [Subject](./docs/README.md)
+> ℹ️ [Subject report](./docs/report.md)
+
 ## Launch the app on Docker
 
 ### Requirements
@@ -27,7 +30,7 @@ docker compose up -d
 
 <details>
 	<summary>
-		If you want to use your local version, change in the [`compose.yaml`](./compose.yaml):
+		If you want to use your local version, change in the <code>compose.yaml</code>:
 	</summary>
 
 ```yaml
@@ -50,7 +53,7 @@ services:
 
 </details>
 
-## Launch the app on K3D
+## Launch the app on k3d
 
 ### Requirements
 
@@ -65,13 +68,13 @@ services:
 wget -q -O - https://raw.githubusercontent.com/k3d-io/k3d/main/install.sh | bash
 ```
 
-- Create a cluster: 
+- Create a cluster:
 
 ```shell
 k3d cluster create city-api-cluster
 ```
 
-- Deploy the application using helm: 
+- Deploy the application using helm:
 
 ```
 helm install city-api ./helm
