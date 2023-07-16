@@ -2,35 +2,28 @@
 
 Project to experiment with Github Actions.
 
-## Install with Helm
+## Launch the app on Docker
 
-Create a namespace for this application:
+### Requirements
 
-```shell
-kubectl create namespace city-api # for example
-```
+- [Docker](https://docs.docker.com/get-docker/)
+- [Docker Compose](https://docs.docker.com/compose/install/)
 
-Install the helm chart:
+### Instructions
 
-```shell
-helm install ./helm --generate-name -n city-api
-```
-
-## Start
-
-Copy the `.env.example`:
+- Copy the `.env.example`:
 
 ```shell
 cp .env.example .env
 ```
 
-Start DB & api:
+- Start DB & api:
 
 ```shell
 docker compose up -d
 ```
 
-Go to: [localhost:2022](http://localhost:2022/_health)
+- Access the application here: [localhost:2022](http://localhost:2022/_health)
 
 <details>
 	<summary>
@@ -57,12 +50,40 @@ services:
 
 </details>
 
-## Launch on K3D
+## Launch the app on K3D
 
-- First, install [k3d](https://k3d.io/#installation) (or minikube)
-- Then, create a cluster: `k3d cluster create city-api-cluster`
-- Deploy using helm: `helm install city-api ./helm`
-- Open the service: `kubectl port-forward deployment/city-api-deployment 2022`
+### Requirements
+
+- [helm](https://helm.sh/docs/intro/install/)
+- [kubectl](https://kubernetes.io/docs/tasks/tools/install-kubectl/)
+
+### Instructions
+
+- Install [k3d](https://k3d.io/#installation) (alternatively, you can use [minikube](https://minikube.sigs.k8s.io/docs/start/)):
+
+```shell
+wget -q -O - https://raw.githubusercontent.com/k3d-io/k3d/main/install.sh | bash
+```
+
+- Create a cluster: 
+
+```shell
+k3d cluster create city-api-cluster
+```
+
+- Deploy the application using helm: 
+
+```
+helm install city-api ./helm
+```
+
+- Port forward the deployment to your local machine:
+
+```shell
+kubectl port-forward deployment/city-api-deployment 2022
+```
+
+- Access the application here: [localhost:2022](http://localhost:2022/_health)
 
 ## FAQ
 
