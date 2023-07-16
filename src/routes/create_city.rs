@@ -1,14 +1,14 @@
 use crate::city::{City, CreateCity};
 use crate::AppState;
 use actix_web::{post, web, HttpResponse};
-use log::trace;
+use log::{error, trace};
 
 #[post("/city")]
 pub async fn create_city_handler(
     json: web::Json<CreateCity>,
     data: web::Data<AppState>,
 ) -> HttpResponse {
-    trace!("new city: {:?}", json);
+    trace!("city payload: {:?}", json);
     let city = json.into_inner();
 
     let result = sqlx::query_file_as!(
@@ -23,6 +23,10 @@ pub async fn create_city_handler(
     )
     .fetch_optional(&data.db)
     .await;
+
+    if let Err(e) = &result {
+        error!("error inserting city: {:?}", e);
+    }
 
     match result {
         Ok(Some(created_city)) => HttpResponse::Created().json(created_city),
