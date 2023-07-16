@@ -1,5 +1,6 @@
 mod common;
 
+use actix_web::http::StatusCode;
 use actix_web::web;
 use actix_web::{test, App};
 
@@ -15,6 +16,7 @@ async fn test_health_get() {
     let req = test::TestRequest::get().uri("/_health").to_request();
     let resp = test::call_service(&app, req).await;
     assert!(resp.status().is_success());
+    assert_eq!(resp.status(), StatusCode::NO_CONTENT);
 }
 
 #[actix_web::test]
@@ -59,6 +61,7 @@ async fn test_create_city() {
         .to_request();
     let resp = test::call_service(&app, req).await;
     assert!(resp.status().is_success());
+    assert_eq!(resp.status(), StatusCode::CREATED);
 
     let created_city: CreateCity = test::read_body_json(resp).await;
     assert_eq!(created_city, city);
